@@ -6,10 +6,20 @@ interface IClassroom {
   time_end: string;
 }
 
+interface INewClassroom {
+  class_name: string;
+  room_number: number;
+  day: number;
+  time_start: string;
+  time_end: string;
+}
+
+
+
 interface Mahasiswa {
   id: string;
-  fullname: string | null;
-  email: string | null;
+  fullname: string;
+  email: string;
   emailVerified: Date | null;
   image: string | null;
   password: string;
@@ -18,4 +28,6 @@ interface Mahasiswa {
   updatedAt: Date;
 }
 
-export type { IClassroom, Mahasiswa };
+
+
+export type { IClassroom, Mahasiswa, INewClassroom };

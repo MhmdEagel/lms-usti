@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newClassroomSchema } from "@/schemas/schemas";
-import { IClassroom } from "@/types/Kelas";
+import { INewClassroom } from "@/types/Kelas";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { createNewClassroom } from "@/actions/new-classroom";
@@ -25,7 +25,7 @@ const useCreateClassroom = () => {
     createClassForm.reset();
   };
 
-  const handleCreateClassroom = async (data: IClassroom) => {
+  const handleCreateClassroom = async (data: INewClassroom) => {
     try {
       setIsPending(true);
       const res = await createNewClassroom(data);

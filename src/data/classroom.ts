@@ -20,32 +20,82 @@ export const getAllClassroomByMahasiswaId = async (mahasiswaId: string) => {
     include: {
       kelasMahasiswa: {
         include: {
-          dosen: true
-        }
+          dosen: true,
+        },
       },
     },
   });
   return data;
 };
 
-export const getClassroomBySlug = async (slug: string) => {
+export const getAllClassroomDetailsBySlug = async (slug: string) => {
+  const omitOptions = {
+    updatedAt: true,
+    createdAt: true,
+    email: true,
+    emailVerified: true,
+    password: true,
+    role: true,
+  };
   const data = await prisma.kelas.findUnique({
     where: {
       slug,
     },
     include: {
-      dosen: true,
-      mahasiswa: {
-        omit: {
-          updatedAt: true,
-          createdAt: true,
-          email: true,
-          emailVerified: true,
-          password: true,
-          role: true
-        }
+      dosen: {
+        omit: omitOptions
       },
-    }
+      mahasiswa: {
+        omit: omitOptions,
+      },
+    },
   });
   return data;
 };
+
+export const getClassroomDetailBySlug = async (slug: string) => {
+  const omitOptions = {
+    updatedAt: true,
+    createdAt: true,
+    email: true,
+    emailVerified: true,
+    password: true,
+    role: true,
+  };
+
+  const data = await prisma.kelas.findUnique({
+    where: {
+      slug
+    },
+    include: {
+      dosen: {
+        omit: omitOptions
+      }
+    },
+  })
+  return data;
+}
+
+export const getClassroomDosenBySlug = async (slug: string) => {
+  const data = await prisma.kelas.findUnique({
+    where: {
+      slug
+    },
+    select: {
+      dosen: true
+    }
+  })
+  return data
+}
+
+export const getClassroomMahasiswaBySlug = async (slug: string) => {
+  const data = await prisma.kelas.findUnique({
+    where: {
+      slug
+    },
+    select: {
+      mahasiswa: true
+    }
+  })
+  return data?.mahasiswa
+}

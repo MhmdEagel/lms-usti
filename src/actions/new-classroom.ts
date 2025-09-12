@@ -4,12 +4,12 @@ import getCurrentUser from "@/lib/auth";
 import dayjs from "dayjs";
 import generateJoinCode from "@/lib/classroom";
 import { prisma } from "@/lib/db";
-import { IClassroom } from "@/types/Kelas";
+import { INewClassroom } from "@/types/Kelas";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { slugify } from "@/lib/utils";
 
-export const createNewClassroom = async (data: IClassroom) => {
+export const createNewClassroom = async (data: INewClassroom) => {
   const user = await getCurrentUser();
 
   if (!user) redirect("/auth/login");

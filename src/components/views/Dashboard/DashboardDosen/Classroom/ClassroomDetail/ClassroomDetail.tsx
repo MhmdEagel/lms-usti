@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import NotFound from "@/components/views/NotFound/NotFound";
-import { getClassroomBySlug } from "@/data/classroom";
 import { getDayName, getTimeString } from "@/lib/utils";
 import {
   Book,
@@ -31,7 +30,6 @@ export default async function ClassroomDetail(props: PropTypes) {
   if (!classroom) {
     return <NotFound />;
   }
-
   return (
     <div className="space-y-4">
       <Card className="min-h-[250px] bg-blue-100 relative pt-1">
