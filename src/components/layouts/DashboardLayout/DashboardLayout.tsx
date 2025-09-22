@@ -5,7 +5,7 @@ import DashboardSidebar from "./DashboardSidebar/DashboardSidebar";
 import { SIDEBAR_DOSEN, SIDEBAR_MAHASISWA } from "./DashboardLayout.constants";
 import DashboardHeader from "./DashboardHeader/DashboardHeader";
 import { User } from "next-auth";
-
+import { Toaster } from "@/components/ui/sonner";
 
 interface PropTypes {
   user?: User;
@@ -28,12 +28,11 @@ export default function DashboardLayout(props: PropTypes) {
     >
       <DashboardSidebar user={user} sidebarItems={sidebarItems} />
       <SidebarInset>
-        <div className="flex h-screen flex-col overflow-hidden">
+        <Toaster />
           <DashboardHeader />
           <main className="flex flex-1 flex-col p-4 overflow-y-auto">
             {children}
           </main>
-        </div>
       </SidebarInset>
     </SidebarProvider>
   );

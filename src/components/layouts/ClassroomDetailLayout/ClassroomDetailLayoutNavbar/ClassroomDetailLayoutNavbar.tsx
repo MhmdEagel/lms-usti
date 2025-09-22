@@ -2,51 +2,57 @@
 
 import { usePathname } from "next/navigation";
 import ClassroomDetailLayoutNavbarItem from "./ClassroomDetailLayoutNavbarItem";
+import { Book, ListTodo, Megaphone, Settings, Users } from "lucide-react";
 
 export default function ClassroomDetailLayoutNavbar({
-  slug,
+  classId,
+  type,
 }: {
-  slug: string;
+  classId: string;
+  type: "dosen" | "mahasiswa";
 }) {
   const pathname = usePathname();
   return (
-    <nav className="flex flex-col gap-2 py-2 mb-4">
-      <div className="inline-flex w-full justify-center items-center p-0 h-9">
-        <div className="[&>*]:p-3 [&>*]:flex-1 [&>*]:inline-flex  w-full border-b-1">
-          
+    <nav className="flex flex-col gap-2 mb-4">
+      <div className="inline-flex w-full justify-center items-center p-0">
+        <div className="w-full border-b-[1.5px]">
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/dosen/kelas/${slug}`}
-            href={`/dosen/kelas/${slug}`}
+            isActive={pathname === `/${type}/kelas/${classId}`}
+            href={`/${type}/kelas/${classId}`}
           >
-            Pengumuman
+            <Megaphone size={16} />
+            <span>Pengumuman</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/dosen/kelas/${slug}/materi`}
-            href={`/dosen/kelas/${slug}/materi`}
+            isActive={pathname === `/${type}/kelas/${classId}/materi`}
+            href={`/${type}/kelas/${classId}/materi`}
           >
-            Materi
+            <Book size={16} />
+            <span>Materi</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/dosen/kelas/${slug}/tugas`}
-            href={`/dosen/kelas/${slug}/tugas`}
+            isActive={pathname === `/${type}/kelas/${classId}/tugas`}
+            href={`/${type}/kelas/${classId}/tugas`}
           >
-            Tugas
+            <ListTodo size={16} />
+            <span>Tugas</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/dosen/kelas/${slug}/mahasiswa`}
-            href={`/dosen/kelas/${slug}/mahasiswa`}
+            isActive={pathname === `/${type}/kelas/${classId}/mahasiswa`}
+            href={`/${type}/kelas/${classId}/mahasiswa`}
           >
-            Mahasiswa
+            <Users size={16} />
+            <span>Mahasiswa</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/dosen/kelas/${slug}/pengaturan`}
-            href={`/dosen/kelas/${slug}/pengaturan`}
+            isActive={pathname === `/${type}/kelas/${classId}/pengaturan`}
+            href={`/${type}/kelas/${classId}/pengaturan`}
           >
-            Pengaturan
+            <Settings size={16} />
+            <span>Pengaturan</span>
           </ClassroomDetailLayoutNavbarItem>
-          
         </div>
-      </div>
+      </div> 
     </nav>
   );
 }

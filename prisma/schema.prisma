@@ -16,29 +16,42 @@ datasource db {
 model User {
   id             String    @id @default(cuid())
   fullname       String
-  email          String   @unique
+  email          String    @unique
   emailVerified  DateTime?
   image          String?
   password       String
   role           Role      @default(MAHASISWA)
   kelasDosen     Kelas[]   @relation("DosenKelas")
   kelasMahasiswa Kelas[]   @relation("MahasiswaKelas")
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Pengumuman Pengumuman[]
 }
 
 model Kelas {
-  id          String   @id @unique
+  id          String       @id @unique @default(cuid())
+  class_code  String       @unique
   class_name  String
-  slug        String   @unique
-  dosen       User     @relation("DosenKelas", fields: [dosenId], references: [id])
+  slug        String       @unique
+  dosen       User         @relation("DosenKelas", fields: [dosenId], references: [id])
   dosenId     String
   room_number Int
   day         Int
   time_start  DateTime
   time_end    DateTime
-  mahasiswa   User[]   @relation("MahasiswaKelas")
+  mahasiswa   User[]       @relation("MahasiswaKelas")
+  pengumuman  Pengumuman[]
+}
+
+model Pengumuman {
+  id        String   @id @default(cuid())
+  title     String
+  content   String @db.Text
+  kelas     Kelas    @relation(fields: [kelasId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  kelasId   String
+  userId    String
+  createdAt DateTime @default(now())
 }
 
 model VerificationToken {

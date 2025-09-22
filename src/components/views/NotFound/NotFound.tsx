@@ -11,7 +11,7 @@ export default function NotFound() {
         alt="Page Not Found"
       />
       <div className="space-y-2 text-center">
-        <div className="text-2xl text-primary font-bold">404</div>
+        <div className="text-4xl text-primary font-bold">404</div>
         <div className="text-xl font-semibold">Halaman Tidak Ditemukan</div>
         <BackBtn />
       </div>

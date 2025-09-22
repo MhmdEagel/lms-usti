@@ -1,13 +1,29 @@
 import Image from "next/image";
 import GabungKelas from "./GabungKelas/GabungKelas";
-import { Toaster } from "@/components/ui/sonner";
+import { getAllClassroomByMahasiswaId } from "@/data/classroom";
+import getCurrentUser from "@/lib/auth";
+import ClassroomItem from "@/components/common/ClassroomItem/ClassroomItem";
 
 
-export default function Kelas() {
- 
+export default async function Kelas() {
+  const user = await getCurrentUser()
+  const classes = await getAllClassroomByMahasiswaId(user?.id)
+  console.log(classes)
+    if (classes && classes.length > 0) {
+      return (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {classes.map((classroom) => (
+            <ClassroomItem type="mahasiswa" key={classroom.id} classroom={classroom} />
+          ))}
+        </div>
+      );
+    }
+
+  
+
+
   return (
     <>
-      <Toaster />
       <div className="flex flex-col items-center justify-center h-full gap-4">
         <Image
           src={"/images/ilustration/empty-class.svg"}

@@ -21,7 +21,7 @@ export const createNewClassroom = async (data: INewClassroom) => {
   try {
     await prisma.kelas.create({
       data: {
-        id: generateJoinCode(),
+        class_code: generateJoinCode(),
         class_name,
         day,
         slug: slugify(class_name),

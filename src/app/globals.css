@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+@plugin "@tailwindcss/typography";
 @custom-variant dark (&:is(.dark *));
 
 /* @custom-variant dark (&:is(.dark *)); */
@@ -50,6 +50,16 @@
   --shadow-lg: 0 1px 3.5px 0px hsl(0 0% 0% / 0.21), 0 4px 6px -1px hsl(0 0% 0% / 0.21);
   --shadow-xl: 0 1px 3.5px 0px hsl(0 0% 0% / 0.21), 0 8px 10px -1px hsl(0 0% 0% / 0.21);
   --shadow-2xl: 0 1px 3.5px 0px hsl(0 0% 0% / 0.53);
+}
+
+.editor ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.editor ol {
+  list-style-type: decimal;
+  padding-left: 20px;
 }
 
 .dark {

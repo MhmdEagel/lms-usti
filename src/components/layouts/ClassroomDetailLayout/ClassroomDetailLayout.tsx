@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import ClassroomHeader from "@/components/views/Dashboard/DashboardDosen/Classroom/ClassroomDetail/ClassroomHeader/ClassroomHeader";
+import ClassroomHeader from "@/components/layouts/ClassroomDetailLayout/ClassroomHeader/ClassroomHeader";
 import { UserDetail } from "@/types/User";
 import { Kelas } from "@prisma/client";
 import Image from "next/image";
@@ -12,11 +12,13 @@ interface Classroom extends Kelas {
 export default function ClassroomDetailLayout({
   children,
   classroom,
-  slug,
+  classId,
+  type,
 }: {
   children: React.ReactNode;
   classroom: Classroom;
-  slug: string
+  classId: string;
+  type: "dosen" | "mahasiswa";
 }) {
   return (
     <div className="space-y-4">
@@ -29,7 +31,8 @@ export default function ClassroomDetailLayout({
           alt="Classroom Cover"
         />
         <ClassroomHeader
-          class_id={classroom.id}
+          type={type}
+          class_code={classroom.class_code}
           class_name={classroom.class_name}
           day={classroom.day}
           dosen={classroom.dosen}
@@ -40,7 +43,7 @@ export default function ClassroomDetailLayout({
       </Card>
       <Card>
         <CardContent>
-          <ClassroomDetailLayoutNavbar slug={slug} />
+          <ClassroomDetailLayoutNavbar type={type} classId={classId} />
           {/* classroom content */}
           {children}
         </CardContent>

@@ -21,7 +21,7 @@ export default function ClassroomItem(props: PropTypes) {
   const { classroom, type } = props;
   return (
     <Link
-      href={`${type === "dosen" ? "/dosen/kelas/" : "/mahasiswa/kelas/"}${classroom.slug}`}
+      href={`${type === "dosen" ? "/dosen/kelas/" : "/mahasiswa/kelas/"}${classroom.id}`}
     >
       <Card className="pt-3 space-y-8">
         <CardHeader className="px-3">

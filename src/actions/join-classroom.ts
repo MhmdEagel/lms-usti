@@ -15,7 +15,7 @@ export const joinClassroom = async (classCode: string) => {
   try {
     await prisma.kelas.update({
       where: {
-        id: classCode,
+        class_code: classCode,
       },
       data: {
         mahasiswa: {

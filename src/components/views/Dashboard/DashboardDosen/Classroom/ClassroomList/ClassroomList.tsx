@@ -1,19 +1,11 @@
 import ClassroomItem from "@/components/common/ClassroomItem/ClassroomItem";
+import { getAllClassroomByDosenId } from "@/data/classroom";
 import getCurrentUser from "@/lib/auth";
-import { prisma } from "@/lib/db";
 import Image from "next/image";
 
 export default async function ClassroomList() {
   const user = await getCurrentUser();
-  const classes = await prisma.kelas.findMany({
-    where: {
-      dosenId: user?.id,
-    },
-    include: {
-      dosen: true,
-    },
-  });
-
+  const classes = await getAllClassroomByDosenId(user?.id)
   if (classes.length > 0) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">

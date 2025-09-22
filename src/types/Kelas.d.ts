@@ -14,6 +14,14 @@ interface INewClassroom {
   time_end: string;
 }
 
+interface IEditClassroom {
+  class_name: string;
+  room_number: number;
+  day: string;
+  time_start: string;
+  time_end: string;
+}
+
 
 
 interface Mahasiswa {
@@ -28,6 +36,11 @@ interface Mahasiswa {
   updatedAt: Date;
 }
 
+interface IPengumuman {
+  title: string;
+  content: string
+}
 
 
-export type { IClassroom, Mahasiswa, INewClassroom };
+
+export type { IClassroom, Mahasiswa, INewClassroom, IPengumuman, IEditClassroom };

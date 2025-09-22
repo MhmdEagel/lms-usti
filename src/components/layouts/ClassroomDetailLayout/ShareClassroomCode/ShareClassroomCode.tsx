@@ -3,7 +3,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -49,7 +48,6 @@ export default function ShareClassroomCode(props: PropTypes) {
           </AlertDialogHeader>
           <div className="text-4xl font-bold text-center">{classroomCode}</div>
           <AlertDialogFooter>
-            <AlertDialogCancel>Batal</AlertDialogCancel>
             <AlertDialogAction>Oke</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

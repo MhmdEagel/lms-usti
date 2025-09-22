@@ -5,7 +5,7 @@ export default async function ClassroomDetailMainLayout({ children, params }: { 
   const {slug} = await params
   const classroomData = await getClassroomDetailBySlug(slug);
   return (
-    <ClassroomDetailLayout slug={slug} classroom={classroomData!}>
+    <ClassroomDetailLayout type="mahasiswa" slug={slug} classroom={classroomData!}>
       {children}
     </ClassroomDetailLayout>
   )
