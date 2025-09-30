@@ -3,21 +3,33 @@ import { getAllClassroomByDosenId } from "@/data/classroom";
 import getCurrentUser from "@/lib/auth";
 import Image from "next/image";
 
-export default async function ClassroomList() {
+export default async function ClassroomList({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
   const user = await getCurrentUser();
-  const classes = await getAllClassroomByDosenId(user?.id)
+  const classes = await getAllClassroomByDosenId(user?.id, searchParams);
   if (classes.length > 0) {
     return (
+      <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">
         {classes.map((classroom) => (
-          <ClassroomItem type="dosen" key={classroom.id} classroom={classroom} />
+          <ClassroomItem
+            type="dosen"
+            key={classroom.id}
+            classroom={classroom}
+          />
         ))}
       </div>
+
+      </>
     );
   }
 
   return (
-      <div className="flex flex-col h-screen items-center justify-center gap-4 select-none">
+    <>
+      <div className="flex flex-col h-[400px] items-center justify-center gap-4 select-none">
         <Image
           src={"/images/ilustration/empty-class-dosen.svg"}
           alt="Kelas Kosong"
@@ -33,5 +45,7 @@ export default async function ClassroomList() {
           </p>
         </div>
       </div>
+      
+    </>
   );
 }

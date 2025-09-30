@@ -69,6 +69,7 @@ const newClassroomSchema = z
     room_number: z.coerce
       .number({ required_error: "Ruang wajib diisi" })
       .nonnegative("Ruang tidak boleh negatif"),
+    semester: z.coerce.number({ required_error: "Semester Wajib diisi" }),
     day: z.coerce.number({ required_error: "Hari wajib dipilih" }),
     time_start: z.string({ required_error: "Jam mulai kelas wajib diisi" }),
     time_end: z.string({ required_error: "Jam selesai kelas wajib diisi" }),
@@ -83,7 +84,7 @@ const newClassroomSchema = z
     }
   );
 
-  const editClassroomSchema = z
+const editClassroomSchema = z
   .object({
     class_name: z.string({ required_error: "Nama Kelas wajib diisi" }),
     room_number: z.coerce
@@ -102,22 +103,42 @@ const newClassroomSchema = z
       path: ["time_end"],
     }
   );
-  
 
 const joinClassroomSchema = z.object({
   classroom_code: z.string().min(4, "Kode kelas wajib diisi"),
 });
 
-
-
 const newAnnouncementSchema = z.object({
   title: z.string({ required_error: "Judul wajib diisi" }),
-  content: z.string().refine(
-    (val) => val.trim() !== "" && val !== "<p><br></p>",
-    {
+  content: z
+    .string()
+    .refine((val) => val.trim() !== "" && val !== "<p><br></p>", {
       message: "Konten wajib diisi",
-    }
-  ),
+    }),
+});
+const newMaterialSchema = z.object({
+  title: z.string({ required_error: "Judul wajib diisi" }),
+  description: z
+    .string()
+    .transform((val) => {
+      if (!val || val.trim() === "" || val === "<p><br></p>") {
+        return null; // ubah jadi null
+      }
+      return val;
+    })
+    .nullable()
+    .optional(),
+  pdfMateri: z
+    .array(
+      z.custom<File>((val) => {
+        if(val instanceof File) {
+          return true
+        }
+        return false;  
+      }).refine((file) => file.type === "application/pdf", {message: "File harus berupa pdf"})
+    )
+    .optional(),
+  linkMateri: z.array(z.string()).optional(),
 });
 
 export {
@@ -128,5 +149,6 @@ export {
   joinClassroomSchema,
   newClassroomSchema,
   newAnnouncementSchema,
-  editClassroomSchema
+  editClassroomSchema,
+  newMaterialSchema,
 };

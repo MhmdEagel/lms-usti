@@ -13,6 +13,7 @@ interface PropTypes {
   time_end: Date;
   dosen: UserDetail;
   type: "mahasiswa" | "dosen";
+  semester: string;
 }
 export default function ClassroomHeader(props: PropTypes) {
   const {
@@ -24,6 +25,7 @@ export default function ClassroomHeader(props: PropTypes) {
     time_end,
     dosen,
     type,
+    semester,
   } = props;
 
 
@@ -34,6 +36,7 @@ export default function ClassroomHeader(props: PropTypes) {
         <>
           <div className="font-bold text-primary text-lg">{class_name}</div>
           <div>Ruangan {room_number}</div>
+          <div>Semester {semester}</div>
           <div>
             {getDayName(day)}, {getTimeString(time_start)} -{" "}
             {getTimeString(time_end)}

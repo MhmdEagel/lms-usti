@@ -21,7 +21,7 @@ export default function ClassroomDetailLayout({
   type: "dosen" | "mahasiswa";
 }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 p-4">
       <Card className="min-h-[250px] bg-blue-100 relative pt-1">
         <Image
           className="mx-auto block"
@@ -39,6 +39,7 @@ export default function ClassroomDetailLayout({
           room_number={classroom.room_number}
           time_start={classroom.time_start}
           time_end={classroom.time_end}
+          semester={classroom.semester.toString()}
         />
       </Card>
       <Card>

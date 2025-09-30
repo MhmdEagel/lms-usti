@@ -2,7 +2,6 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
 import { Suspense } from "react";
 import ClassroomCount from "./ClassroomCount";
-
 export default function DashboardDosen() {
   return (
     <div>

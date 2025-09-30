@@ -18,8 +18,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Plus } from "lucide-react";
-import ContentEditor from "./ContentEditor/ContentEditor";
-
+import ContentEditor from "@/components/ui/content-editor";
 export default function AddAnnouncement({
   userId,
   userRole,
@@ -47,7 +46,7 @@ export default function AddAnnouncement({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Tambahkan Pengumuman</p>
+              <p>Buat Pengumuman</p>
             </TooltipContent>
           </Tooltip>
         ) : null}

@@ -8,12 +8,15 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { cn } from "@/lib/utils";
-import { EditorState } from "lexical";
-import { ListItemNode, ListNode } from "@lexical/list";
+import { EditorState, FORMAT_TEXT_COMMAND } from "lexical";
+import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, ListItemNode, ListNode } from "@lexical/list";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import ToolbarPlugin from "./ToolbarPlugin/ToolbarPlugin";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
+import { Toggle } from "./toggle";
+import { Bold, Italic, List, ListOrdered } from "lucide-react";
+import { Button } from "./button";
 
 const theme = {};
 
@@ -25,17 +28,20 @@ interface EditorProps {
   value?: string; 
   onChange: (value: string) => void;
   isInvalid: boolean;
+  placeholder?: string;
 }
 
 export default function ContentEditor(props: EditorProps) {
-  const { onChange, isInvalid } = props;
+  const { onChange, isInvalid, placeholder } = props;
 
   const initialConfig = {
-    namespace: "MyEditor",
+    namespace: "ContentEditor",
     theme,
     onError,
     nodes: [ListNode, ListItemNode],
   };
+
+
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
@@ -51,10 +57,10 @@ export default function ContentEditor(props: EditorProps) {
             aria-invalid={isInvalid}
             placeholder={
               <div className="absolute top-12 pl-3 text-sm opacity-60 select-none overflow-hidden pointer-events-none">
-                Masukkan konten pengumuman disini...
+                {placeholder ?? "Masukkan konten disini..."}
               </div>
             }
-            aria-placeholder="Masukkan konten pengumuman disini..."
+            aria-placeholder={placeholder ?? "Masukkan konten disini..."}
           />
         }
         ErrorBoundary={LexicalErrorBoundary}
@@ -86,4 +92,71 @@ function EditorOnChangePlugin(props: EditorOnChangeProps) {
       }}
     />
   );
+}
+
+function ToolbarPlugin() {
+    const [editor] = useLexicalComposerContext();
+
+
+  function addListAction() {
+    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+  }
+
+  function addOrderedListAction() {
+    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+  }
+
+  const boldAction = () => {
+    editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
+  };
+
+  const italicAction = () => {
+    editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
+  };
+
+  return (
+    <div className="mb-2 space-x-2">
+      <Tooltip>
+        <Toggle asChild variant={"outline"} onClick={boldAction}>
+          <TooltipTrigger>
+            <Bold />
+          </TooltipTrigger>
+        </Toggle>
+        <TooltipContent>
+          <p>Bold</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <Toggle asChild variant={"outline"} onClick={italicAction}>
+          <TooltipTrigger>
+            <Italic />
+          </TooltipTrigger>
+        </Toggle>
+        <TooltipContent>
+          <p>Italic</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <Button asChild variant={"outline"} type="button" onClick={addListAction}>
+          <TooltipTrigger>
+            <List />
+          </TooltipTrigger>
+        </Button>
+        <TooltipContent>
+          <p>Unordered List</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <Button asChild variant={"outline"} type="button" onClick={addOrderedListAction}>
+          <TooltipTrigger>
+            <ListOrdered />
+          </TooltipTrigger>
+        </Button>
+        <TooltipContent>
+          <p>Ordered List</p>
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  );
+  
 }

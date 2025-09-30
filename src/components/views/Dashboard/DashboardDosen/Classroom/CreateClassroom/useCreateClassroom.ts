@@ -13,6 +13,7 @@ const useCreateClassroom = () => {
     defaultValues: {
       class_name: "",
       day: 0,
+      semester: 1,
       room_number: 1,
       time_start: "",
       time_end: "",
@@ -38,9 +39,6 @@ const useCreateClassroom = () => {
       setIsPending(false);
     }
   };
-
-
-
 
   return {
     isOpen,

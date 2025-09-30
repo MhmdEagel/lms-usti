@@ -15,7 +15,7 @@ export const createNewClassroom = async (data: INewClassroom) => {
   if (!user) redirect("/auth/login");
   if (user.role !== "DOSEN") throw new Error("Unauthorized");
 
-  const { class_name, day, room_number, time_start, time_end } = data;
+  const { class_name, day, room_number, time_start, time_end, semester } = data;
   const timeStartDateObj = dayjs(`10-10-2010 ${time_start}`);
   const timeEndDateObj = dayjs(`10-10-2010 ${time_end}`);
   try {
@@ -24,6 +24,7 @@ export const createNewClassroom = async (data: INewClassroom) => {
         class_code: generateJoinCode(),
         class_name,
         day,
+        semester,
         slug: slugify(class_name),
         room_number,
         time_start: timeStartDateObj.toISOString(),

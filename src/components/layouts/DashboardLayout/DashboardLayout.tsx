@@ -30,7 +30,7 @@ export default function DashboardLayout(props: PropTypes) {
       <SidebarInset>
         <Toaster />
           <DashboardHeader />
-          <main className="flex flex-1 flex-col p-4 overflow-y-auto">
+          <main className="flex flex-1 flex-col  overflow-y-auto">
             {children}
           </main>
       </SidebarInset>

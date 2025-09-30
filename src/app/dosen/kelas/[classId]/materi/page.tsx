@@ -1,5 +1,12 @@
-export default function MateriPage() {
+import Material from "@/components/views/Dashboard/Classroom/ClassroomAnnouncement/Material/Material";
+
+export default async function MateriPage({
+  params,
+}: {
+  params: Promise<{ classId: string }>;
+}) {
+  const { classId } = await params;
   return (
-    <div>page</div>
+    <Material classId={classId} />
   )
 }

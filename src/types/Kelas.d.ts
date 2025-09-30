@@ -10,6 +10,7 @@ interface INewClassroom {
   class_name: string;
   room_number: number;
   day: number;
+  semester: number;
   time_start: string;
   time_end: string;
 }
@@ -21,8 +22,6 @@ interface IEditClassroom {
   time_start: string;
   time_end: string;
 }
-
-
 
 interface Mahasiswa {
   id: string;
@@ -38,9 +37,21 @@ interface Mahasiswa {
 
 interface IPengumuman {
   title: string;
-  content: string
+  content: string;
 }
 
+interface INewMaterial {
+  title: string;
+  pdfMateri?: File[] | undefined;
+  description?: string | null | undefined;
+  linkMateri?: string[] | undefined;
+}
 
-
-export type { IClassroom, Mahasiswa, INewClassroom, IPengumuman, IEditClassroom };
+export type {
+  IClassroom,
+  Mahasiswa,
+  INewClassroom,
+  IPengumuman,
+  IEditClassroom,
+  INewMaterial,
+};

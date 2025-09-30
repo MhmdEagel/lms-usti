@@ -127,6 +127,28 @@ export default function CreateClassroom() {
 
               <FormField
                 control={createClassForm.control}
+                name="semester"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Semester</FormLabel>
+                    <FormControl>
+                      <Input
+                        min={1}
+                        autoComplete="off"
+                        type="number"
+                        placeholder="Semester"
+                        inputMode="numeric"
+                        pattern="[1-9]{1}"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={createClassForm.control}
                 name="time_start"
                 render={({ field }) => (
                   <FormItem>
@@ -155,6 +177,9 @@ export default function CreateClassroom() {
                   </FormItem>
                 )}
               />
+
+
+
               <FormField
                 control={createClassForm.control}
                 name="day"

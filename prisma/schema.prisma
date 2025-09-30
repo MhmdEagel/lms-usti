@@ -14,24 +14,27 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(cuid())
+  id             String       @id @default(cuid())
   fullname       String
-  email          String    @unique
+  email          String       @unique
   emailVerified  DateTime?
   image          String?
   password       String
-  role           Role      @default(MAHASISWA)
-  kelasDosen     Kelas[]   @relation("DosenKelas")
-  kelasMahasiswa Kelas[]   @relation("MahasiswaKelas")
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  Pengumuman Pengumuman[]
+  role           Role         @default(MAHASISWA)
+  kelasDosen     Kelas[]      @relation("DosenKelas")
+  kelasMahasiswa Kelas[]      @relation("MahasiswaKelas")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  Pengumuman     Pengumuman[]
 }
+
+
 
 model Kelas {
   id          String       @id @unique @default(cuid())
   class_code  String       @unique
   class_name  String
+  semester    Int
   slug        String       @unique
   dosen       User         @relation("DosenKelas", fields: [dosenId], references: [id])
   dosenId     String
@@ -39,6 +42,7 @@ model Kelas {
   day         Int
   time_start  DateTime
   time_end    DateTime
+  material    Materi[]
   mahasiswa   User[]       @relation("MahasiswaKelas")
   pengumuman  Pengumuman[]
 }
@@ -46,12 +50,38 @@ model Kelas {
 model Pengumuman {
   id        String   @id @default(cuid())
   title     String
-  content   String @db.Text
+  content   String   @db.Text
   kelas     Kelas    @relation(fields: [kelasId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
   kelasId   String
   userId    String
   createdAt DateTime @default(now())
+}
+
+model Materi {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+  kelas       Kelas        @relation(fields: [kelasId], references: [id])
+  kelasId     String
+  fileMateri  FileMateri[]
+  linkMateri  LinkMateri[]
+}
+
+model FileMateri {
+  id       String @id @default(cuid())
+  fileUrl String
+  Materi   Materi @relation(fields: [materiId], references: [id])
+  materiId String
+}
+
+model LinkMateri {
+  id String @id @default(cuid())
+  linkUrl String
+  Materi   Materi @relation(fields: [materiId], references: [id])
+  materiId String
 }
 
 model VerificationToken {
