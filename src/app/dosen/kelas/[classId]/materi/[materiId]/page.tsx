@@ -1,3 +1,5 @@
+import MaterialDetail from "@/components/common/MaterialDetail/MaterialDetail"
+
 export default async function MateriDetailPage({
   params,
 }: {
@@ -6,6 +8,6 @@ export default async function MateriDetailPage({
   const {materiId} = await params
 
   return (
-    <div>Ini halaman Material Detail</div>
+    <MaterialDetail materiId={materiId}  />
   )
 }

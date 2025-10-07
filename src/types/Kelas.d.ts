@@ -40,11 +40,17 @@ interface IPengumuman {
   content: string;
 }
 
+
+interface ILinkMaterial {
+  linkName: string;
+  linkUrl: string;
+}
+
 interface INewMaterial {
   title: string;
   pdfMateri?: File[] | undefined;
   description?: string | null | undefined;
-  linkMateri?: string[] | undefined;
+  linkMateri?: ILinkMaterial[] | undefined;
 }
 
 export type {
@@ -54,4 +60,5 @@ export type {
   IPengumuman,
   IEditClassroom,
   INewMaterial,
+  ILinkMaterial
 };

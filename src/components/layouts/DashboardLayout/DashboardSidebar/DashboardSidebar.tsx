@@ -27,6 +27,8 @@ interface PropTypes {
 export default function DashboardSidebar(props: PropTypes) {
   const { sidebarItems, user } = props;
   const pathname = usePathname();
+  const url = `/${pathname.split("/").filter(Boolean).slice(0, 2).join("/")}`;
+
 
   return (
     <Sidebar>
@@ -56,7 +58,7 @@ export default function DashboardSidebar(props: PropTypes) {
               <SidebarMenuButton
                 className={cn({
                   "bg-blue-900 hover:bg-blue-900/95 text-white hover:text-white":
-                    pathname === item.href,
+                    url === item.href,
                 })}
                 asChild
               >

@@ -19,7 +19,7 @@ import { Input } from "./input";
 import ContentEditor from "./content-editor";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 import { toast } from "sonner";
-import { INewMaterial } from "@/types/Kelas";
+import { ILinkMaterial, INewMaterial } from "@/types/Kelas";
 import {
   Dialog,
   DialogClose,
@@ -32,15 +32,17 @@ import {
 } from "./dialog";
 import { isValidUrl } from "@/lib/utils";
 import { newMaterial } from "@/actions/new-material";
+import { Label } from "./label";
 
 export default function InputDialog({ classId }: { classId: string }) {
   const [open, setOpen] = useState(false);
   const [arrayOfFiles, setArrayOfFiles] = useState<File[]>([]);
-  const [arrayOfLinks, setArrayOfLinks] = useState<string[]>([]);
+  const [arrayOfLinks, setArrayOfLinks] = useState<ILinkMaterial[]>([]);
   const [isPending, setIsPending] = useState(false);
   const materialForm = useForm({
     defaultValues: {
       pdfMateri: arrayOfFiles,
+      linkMateri: arrayOfLinks,
     },
     resolver: zodResolver(newMaterialSchema),
   });
@@ -157,7 +159,7 @@ export default function InputDialog({ classId }: { classId: string }) {
                             accept="application/pdf"
                             onChange={(e) => {
                               if (
-                                e.target.files &&
+                                e.target &&
                                 e.target.files![0].type !== "application/pdf"
                               ) {
                                 toast.error("File harus berupa pdf");
@@ -219,7 +221,7 @@ export default function InputDialog({ classId }: { classId: string }) {
                               index={index}
                               arrayOfLinks={arrayOfLinks}
                               setArrayOfLinks={setArrayOfLinks}
-                              linkName={item}
+                              linkName={item.linkName}
                               setValue={materialForm.setValue}
                             />
                           ))}
@@ -301,8 +303,8 @@ function LinkItem({
   index,
 }: {
   linkName: string;
-  arrayOfLinks: string[];
-  setArrayOfLinks: Dispatch<React.SetStateAction<string[]>>;
+  arrayOfLinks: ILinkMaterial[];
+  setArrayOfLinks: Dispatch<React.SetStateAction<ILinkMaterial[]>>;
   setValue: UseFormSetValue<INewMaterial>;
   index: number;
 }) {
@@ -337,9 +339,10 @@ function AddLinks({
   setArrayOfLinks,
 }: {
   setValue: UseFormSetValue<INewMaterial>;
-  arrayOfLinks: string[];
-  setArrayOfLinks: Dispatch<React.SetStateAction<string[]>>;
+  arrayOfLinks: ILinkMaterial[];
+  setArrayOfLinks: Dispatch<React.SetStateAction<ILinkMaterial[]>>;
 }) {
+  const [linkName, setLinkName] = useState("");
   const [linkString, setLinkString] = useState("https://www.");
   const [open, setOpen] = useState(false);
 
@@ -348,7 +351,12 @@ function AddLinks({
       toast.error("Link tidak valid");
       return;
     }
-    const newArrayOfLinks = [...arrayOfLinks, linkString];
+
+    const newLinkMateri: ILinkMaterial = {
+      linkName,
+      linkUrl: linkString,
+    };
+    const newArrayOfLinks = [...arrayOfLinks, newLinkMateri];
     setArrayOfLinks(newArrayOfLinks);
     setValue("linkMateri", newArrayOfLinks);
     setLinkString("https://www.");
@@ -386,14 +394,28 @@ function AddLinks({
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
-            <Input
-              id="link-string"
-              type="text"
-              value={linkString}
-              onChange={(e) => {
-                setLinkString(e.target.value);
-              }}
-            />
+            <div className="grid gap-3">
+              <Label htmlFor="link-string">Nama Link</Label>
+              <Input
+                id="link-string"
+                type="text"
+                value={linkName}
+                onChange={(e) => {
+                  setLinkName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="link-string">Link Url</Label>
+              <Input
+                id="link-string"
+                type="text"
+                value={linkString}
+                onChange={(e) => {
+                  setLinkString(e.target.value);
+                }}
+              />
+            </div>
           </div>
           <DialogFooter>
             <DialogClose asChild>

@@ -28,8 +28,6 @@ model User {
   Pengumuman     Pengumuman[]
 }
 
-
-
 model Kelas {
   id          String       @id @unique @default(cuid())
   class_code  String       @unique
@@ -51,7 +49,7 @@ model Pengumuman {
   id        String   @id @default(cuid())
   title     String
   content   String   @db.Text
-  kelas     Kelas    @relation(fields: [kelasId], references: [id])
+  kelas     Kelas    @relation(fields: [kelasId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id])
   kelasId   String
   userId    String
@@ -64,7 +62,7 @@ model Materi {
   description String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now())
-  kelas       Kelas        @relation(fields: [kelasId], references: [id])
+  kelas       Kelas        @relation(fields: [kelasId], references: [id], onDelete: Cascade)
   kelasId     String
   fileMateri  FileMateri[]
   linkMateri  LinkMateri[]
@@ -72,15 +70,19 @@ model Materi {
 
 model FileMateri {
   id       String @id @default(cuid())
-  fileUrl String
-  Materi   Materi @relation(fields: [materiId], references: [id])
+  fileName String
+  fileUrl  String
+  Materi   Materi @relation(fields: [materiId], references: [id], onDelete: Cascade)
   materiId String
 }
 
+
+
 model LinkMateri {
-  id String @id @default(cuid())
-  linkUrl String
-  Materi   Materi @relation(fields: [materiId], references: [id])
+  id       String @id @default(cuid())
+  linkName String
+  linkUrl  String
+  Materi   Materi @relation(fields: [materiId], references: [id], onDelete: Cascade)
   materiId String
 }
 

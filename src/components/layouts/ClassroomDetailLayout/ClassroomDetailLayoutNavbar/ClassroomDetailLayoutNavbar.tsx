@@ -12,40 +12,42 @@ export default function ClassroomDetailLayoutNavbar({
   type: "dosen" | "mahasiswa";
 }) {
   const pathname = usePathname();
+  const url = `/${pathname.split("/").filter(Boolean).slice(0, 4).join("/")}`;
+
   return (
     <nav className="flex flex-col gap-2 mb-4">
       <div className="inline-flex w-full justify-center items-center p-0">
         <div className="w-full border-b-[1.5px]">
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/${type}/kelas/${classId}`}
+            isActive={url === `/${type}/kelas/${classId}`}
             href={`/${type}/kelas/${classId}`}
           >
             <Megaphone size={16} />
             <span>Pengumuman</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/${type}/kelas/${classId}/materi`}
+            isActive={url === `/${type}/kelas/${classId}/materi`}
             href={`/${type}/kelas/${classId}/materi`}
           >
             <Book size={16} />
             <span>Materi</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/${type}/kelas/${classId}/tugas`}
+            isActive={url === `/${type}/kelas/${classId}/tugas`}
             href={`/${type}/kelas/${classId}/tugas`}
           >
             <ListTodo size={16} />
             <span>Tugas</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/${type}/kelas/${classId}/mahasiswa`}
+            isActive={url === `/${type}/kelas/${classId}/mahasiswa`}
             href={`/${type}/kelas/${classId}/mahasiswa`}
           >
             <Users size={16} />
             <span>Mahasiswa</span>
           </ClassroomDetailLayoutNavbarItem>
           <ClassroomDetailLayoutNavbarItem
-            isActive={pathname === `/${type}/kelas/${classId}/pengaturan`}
+            isActive={url === `/${type}/kelas/${classId}/pengaturan`}
             href={`/${type}/kelas/${classId}/pengaturan`}
           >
             <Settings size={16} />

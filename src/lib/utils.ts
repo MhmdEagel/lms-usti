@@ -38,3 +38,11 @@ export function isValidUrl(str: string): boolean {
   ); // validate fragment locator
   return !!urlPattern.test(str);
 }
+
+export function getFileExtension(filename: string): string {
+  return filename.split(".").pop() || filename;
+}
+
+export function getFileName(filename: string): string {
+  return filename.split(".")[0];
+}

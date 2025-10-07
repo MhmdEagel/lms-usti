@@ -116,6 +116,12 @@ const newAnnouncementSchema = z.object({
       message: "Konten wajib diisi",
     }),
 });
+
+const LinkSchema = z.object({
+  linkName: z.string(),
+  linkUrl: z.string(),
+});
+
 const newMaterialSchema = z.object({
   title: z.string({ required_error: "Judul wajib diisi" }),
   description: z
@@ -130,15 +136,19 @@ const newMaterialSchema = z.object({
     .optional(),
   pdfMateri: z
     .array(
-      z.custom<File>((val) => {
-        if(val instanceof File) {
-          return true
-        }
-        return false;  
-      }).refine((file) => file.type === "application/pdf", {message: "File harus berupa pdf"})
+      z
+        .custom<File>((val) => {
+          if (val instanceof File) {
+            return true;
+          }
+          return false;
+        })
+        .refine((file) => file.type === "application/pdf", {
+          message: "File harus berupa pdf",
+        })
     )
     .optional(),
-  linkMateri: z.array(z.string()).optional(),
+  linkMateri: z.array(LinkSchema).optional(),
 });
 
 export {

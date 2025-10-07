@@ -15,8 +15,12 @@ interface PropTypes {
 
 export default function DashboardLayout(props: PropTypes) {
   const { children, type = "mahasiswa", user } = props;
-
   const sidebarItems = type === "mahasiswa" ? SIDEBAR_MAHASISWA : SIDEBAR_DOSEN;
+
+
+
+  
+
 
   return (
     <SidebarProvider
@@ -30,7 +34,7 @@ export default function DashboardLayout(props: PropTypes) {
       <SidebarInset>
         <Toaster />
           <DashboardHeader />
-          <main className="flex flex-1 flex-col  overflow-y-auto">
+          <main className="flex flex-1 flex-col overflow-y-auto">
             {children}
           </main>
       </SidebarInset>
